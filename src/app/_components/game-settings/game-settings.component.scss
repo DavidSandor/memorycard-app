@@ -1,0 +1,31 @@
+select {
+    width: 100px;
+}
+
+label {
+    color: gray;
+}
+
+// Horizontal layout settings
+.game-settings-wrapper.horizontal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+
+    * {
+        margin-right: 10px;
+    }
+
+    label {
+        margin-bottom: 0;
+    }
+}
+
+// Vertical layout settings
+.game-settings-wrapper.vertical {
+    select {
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+}

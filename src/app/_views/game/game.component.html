@@ -1,0 +1,40 @@
+<div class="game-wrapper" *ngIf="isGameOn; else gameSettings">
+    <div class="ingame-settings">
+        <app-game-settings [isHorizontal]="true"></app-game-settings>
+    </div>
+    <div class="stats">
+        <p>Current tries: <span>0</span></p>
+        <p>Best: <span>3</span></p>
+        <button class="btn btn-outline-dark">RESTART</button>
+    </div>
+    <div class="deck-wrapper">
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+    </div>
+</div>
+
+<ng-template #gameSettings>
+    <div class="settings-wrapper">
+        <h1>SNAPSOFT</h1>
+        <h2>MEMORY GAME</h2>
+        <app-game-settings></app-game-settings>
+    </div>
+</ng-template>
