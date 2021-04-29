@@ -16,6 +16,7 @@ export class GameComponent implements OnInit {
   constructor(private gameService: GameService) {
     this.gameService.gameState$.subscribe(gameState => {
       this.cardDeck = gameState.cardDeck;
+      this.isGameOn = gameState.cardDeck.length !== 0;
     })
   }
 
@@ -24,5 +25,9 @@ export class GameComponent implements OnInit {
 
   public onCardClicked(card: GameCard) {
     this.gameService.revealCard(card);
+  }
+
+  public onRestartGame() {
+    this.gameService.startGame();
   }
 }

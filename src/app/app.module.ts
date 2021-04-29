@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -23,7 +24,8 @@ import * as fromGameState from './_store/game-state/game-state.reducer';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    StoreModule.forRoot({ gameState: fromGameState.reducer })
+    StoreModule.forRoot({ gameState: fromGameState.reducer }),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

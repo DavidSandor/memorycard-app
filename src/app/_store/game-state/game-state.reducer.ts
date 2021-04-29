@@ -10,7 +10,6 @@ export const initialState: GameState = {
 
 const _gameStateReducer = createReducer(
     initialState,
-    on(GameStateActions.setCardDeck, (state, {deck}) => ({...state, cardDeck: deck})),
     on(GameStateActions.setBestTries, (state, {tries}) => ({ ...state, bestTries: tries })),
     on(GameStateActions.setCurrentTries, (state, {tries}) => ({ ...state, currentTries: tries })),
     on(GameStateActions.resetGame, (state, {deck}) => ({ ...state, cardDeck: deck, currentTries: 0})),

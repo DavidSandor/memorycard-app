@@ -5,7 +5,7 @@
     <div class="stats">
         <p>Current tries: <span>0</span></p>
         <p>Best: <span>3</span></p>
-        <button class="btn btn-outline-dark">RESTART</button>
+        <button class="btn btn-outline-dark" (click)="onRestartGame()">RESTART</button>
     </div>
     <div class="deck-wrapper">
         <app-game-card *ngFor="let card of cardDeck" [card]="card" (cardClicked)="onCardClicked($event)"></app-game-card>

@@ -1,14 +1,7 @@
 <div class="game-settings-wrapper" [ngClass]="{horizontal: isHorizontal, vertical: !isHorizontal}">
     <label for="deck-size-select">Deck size:</label>
-    <select class="form-control" id="deck-size-select">
-        <option>6</option>
-        <option>8</option>
-        <option>10</option>
-        <option>12</option>
-        <option>14</option>
-        <option>16</option>
-        <option>18</option>
-        <option>20</option>
+    <select class="form-control" id="deck-size-select" [(ngModel)]="selectedDeckSize">
+        <option *ngFor="let size of deckSizeOptions" [ngValue]="size">{{size}}</option>
     </select>
-    <button class="btn btn-danger">START NEW GAME</button>
+    <button class="btn btn-danger" (click)="onStartNewGame()">START NEW GAME</button>
 </div>

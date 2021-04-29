@@ -33,12 +33,12 @@ export class GameService {
     this.gameState$.subscribe(gameState => {
       this.currentDeck = [...gameState.cardDeck];     
     })
-
-    this.startGame(6);
   }
   
-  public startGame(deckSize: number): void {
-    const deck = this.initDeck(deckSize);
+  public startGame(deckSize?: number): void {
+    const dSize = deckSize ? deckSize : this.currentDeck.length;
+
+    const deck = this.initDeck(dSize);
     const randomDeck = this.randomizeDeck(deck);
     this.store.dispatch(resetGame({deck: randomDeck}));
   }
@@ -52,7 +52,9 @@ export class GameService {
 
         this.checkForMatch(card);
 
-        this.checkGameOver();
+        if(this.checkGameOver()) {
+          this.store.dispatch(resetGame({deck: []}));
+        }
 
         this.getRevealedCards().forEach(revCard => {
           setTimeout(() => {
