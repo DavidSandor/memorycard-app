@@ -8,26 +8,7 @@
         <button class="btn btn-outline-dark">RESTART</button>
     </div>
     <div class="deck-wrapper">
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
-        <app-game-card></app-game-card>
+        <app-game-card *ngFor="let card of cardDeck" [card]="card" (cardClicked)="onCardClicked($event)"></app-game-card>
     </div>
 </div>
 
