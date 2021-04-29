@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { GameCard } from 'src/app/_models/game-card.model';
 import { GameService } from 'src/app/_services/game.service';
 
@@ -7,20 +8,26 @@ import { GameService } from 'src/app/_services/game.service';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy {
 
   public isGameOn: boolean = true;
 
   public cardDeck: GameCard[] = [];
 
+  private gameStateSubscription: Subscription; 
+
   constructor(private gameService: GameService) {
-    this.gameService.gameState$.subscribe(gameState => {
+    this.gameStateSubscription = this.gameService.gameState$.subscribe(gameState => {
       this.cardDeck = gameState.cardDeck;
       this.isGameOn = gameState.cardDeck.length !== 0;
     })
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this.gameStateSubscription.unsubscribe();
   }
 
   public onCardClicked(card: GameCard) {
