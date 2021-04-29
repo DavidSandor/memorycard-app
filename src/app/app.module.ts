@@ -8,6 +8,8 @@ import { RulesComponent } from './_views/rules/rules.component';
 import { GameComponent } from './_views/game/game.component';
 import { GameCardComponent } from './_components/game-card/game-card.component';
 import { GameSettingsComponent } from './_components/game-settings/game-settings.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromGameState from './_store/game-state/game-state.reducer';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { GameSettingsComponent } from './_components/game-settings/game-settings
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    StoreModule.forRoot({ gameState: fromGameState.reducer })
   ],
   providers: [],
   bootstrap: [AppComponent]
