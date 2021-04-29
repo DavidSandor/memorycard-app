@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { GameCard } from '../_models/game-card.model';
 import { GameState } from '../_models/game-state.model';
-import { flipCard, matchCards, resetGame } from '../_store/game-state/game-state.actions';
+import { flipCard, matchCards, resetGame, setFullGameState } from '../_store/game-state/game-state.actions';
 import { Observable } from 'rxjs';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,11 @@ export class GameService {
 
   private currentDeck: GameCard[] = [];
 
-  constructor(private store: Store<{ gameState: GameState }>) {
+  constructor(private store: Store<{ gameState: GameState }>, private storageService: StorageService) {
+    if(storageService.getGameState()) {
+      this.store.dispatch(setFullGameState({gameState: storageService.getGameState()}));
+    }
+
     this.gameState$ = this.store.select('gameState');
 
     this.gameState$.subscribe(gameState => {

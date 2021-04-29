@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GameCard } from 'src/app/_models/game-card.model';
 import { GameService } from 'src/app/_services/game.service';
+import { StorageService } from 'src/app/_services/storage.service';
 
 @Component({
   selector: 'app-game',
@@ -14,12 +15,13 @@ export class GameComponent implements OnInit, OnDestroy {
 
   public cardDeck: GameCard[] = [];
 
-  private gameStateSubscription: Subscription; 
+  private gameStateSubscription: Subscription;
 
-  constructor(private gameService: GameService) {
+  constructor(private gameService: GameService, private storageService: StorageService) {
     this.gameStateSubscription = this.gameService.gameState$.subscribe(gameState => {
       this.cardDeck = gameState.cardDeck;
       this.isGameOn = gameState.cardDeck.length !== 0;
+      storageService.storeGameState(gameState);
     })
   }
 
