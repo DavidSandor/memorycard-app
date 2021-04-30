@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GameCard } from 'src/app/_models/game-card.model';
 
 @Component({
@@ -6,7 +6,7 @@ import { GameCard } from 'src/app/_models/game-card.model';
   templateUrl: './game-card.component.html',
   styleUrls: ['./game-card.component.scss']
 })
-export class GameCardComponent implements OnInit {
+export class GameCardComponent {
 
   @Input() card: GameCard | undefined;
   @Output() cardClicked: EventEmitter<GameCard> = new EventEmitter<GameCard>();
@@ -16,10 +16,6 @@ export class GameCardComponent implements OnInit {
   }
 
   constructor() { }
-
-  ngOnInit(): void {
-
-  }
 
   public onCardClick(): void {
     this.cardClicked.emit(this.card);

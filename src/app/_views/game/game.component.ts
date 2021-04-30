@@ -1,31 +1,30 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GameCard } from 'src/app/_models/game-card.model';
 import { GameService } from 'src/app/_services/game.service';
-import { StorageService } from 'src/app/_services/storage.service';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit, OnDestroy {
+export class GameComponent implements OnDestroy {
 
   public isGameOn: boolean = true;
 
   public cardDeck: GameCard[] = [];
+  public currentTries: number = 0;
+  public bestTries: number = 0;
 
   private gameStateSubscription: Subscription;
 
-  constructor(private gameService: GameService, private storageService: StorageService) {
+  constructor(private gameService: GameService) {
     this.gameStateSubscription = this.gameService.gameState$.subscribe(gameState => {
-      this.cardDeck = gameState.cardDeck;
       this.isGameOn = gameState.cardDeck.length !== 0;
-      storageService.storeGameState(gameState);
+      this.cardDeck = gameState.cardDeck;
+      this.currentTries = gameState.currentTries;
+      this.bestTries = gameState.bestTries;
     })
-  }
-
-  ngOnInit(): void {
   }
 
   ngOnDestroy(): void {

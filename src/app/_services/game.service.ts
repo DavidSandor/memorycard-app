@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { GameCard } from '../_models/game-card.model';
 import { GameState } from '../_models/game-state.model';
-import { flipCard, matchCards, resetGame, setFullGameState } from '../_store/game-state/game-state.actions';
+import { flipCard, matchCards, resetGame, setBestTries, setCurrentTries, setFullGameState } from '../_store/game-state/game-state.actions';
 import { Observable } from 'rxjs';
 import { StorageService } from './storage.service';
 
@@ -27,8 +27,12 @@ export class GameService {
   public gameState$: Observable<GameState>;
 
   private currentDeck: GameCard[] = [];
+  private currentTries: number = 0;
+  private bestTries: number = 0;
 
   constructor(private store: Store<{ gameState: GameState }>, private storageService: StorageService) {
+    
+    // Init game state from local storage
     if(storageService.getGameState()) {
       this.store.dispatch(setFullGameState({gameState: storageService.getGameState()}));
     }
@@ -36,7 +40,10 @@ export class GameService {
     this.gameState$ = this.store.select('gameState');
 
     this.gameState$.subscribe(gameState => {
-      this.currentDeck = [...gameState.cardDeck];     
+      this.currentDeck = [...gameState.cardDeck];
+      this.currentTries = gameState.currentTries;
+      this.bestTries = gameState.bestTries;
+      storageService.storeGameState(gameState);
     })
   }
   
@@ -55,9 +62,16 @@ export class GameService {
 
       if(this.getRevealedCards().length > 1) {
 
+        this.store.dispatch(setCurrentTries({tries: ++this.currentTries}));
+
         this.checkForMatch(card);
 
         if(this.checkGameOver()) {
+
+          if(this.bestTries > this.currentTries) {
+            this.store.dispatch(setBestTries({tries: this.currentTries}));
+          }
+
           this.store.dispatch(resetGame({deck: []}));
         }
 

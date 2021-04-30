@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { GameService } from 'src/app/_services/game.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { GameService } from 'src/app/_services/game.service';
   templateUrl: './game-settings.component.html',
   styleUrls: ['./game-settings.component.scss']
 })
-export class GameSettingsComponent implements OnInit {
+export class GameSettingsComponent {
 
   @Input() isHorizontal: boolean = false;
 
@@ -27,9 +27,6 @@ export class GameSettingsComponent implements OnInit {
   public selectedDeckSize = 6;
 
   constructor(private gameService: GameService) { }
-
-  ngOnInit(): void {
-  }
 
   public onStartNewGame(): void {
     this.gameService.startGame(this.selectedDeckSize)
